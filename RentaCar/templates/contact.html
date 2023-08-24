@@ -1,0 +1,38 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block content %}
+	
+
+      <!-- contact section start -->
+      <div class="contact_section layout_padding">
+         <div class="container">
+            <div class="row">
+               <div class="col-sm-12">
+                  <h1 class="contact_taital">Get In Touch</h1>
+               </div>
+            </div>
+         </div>
+
+         <div class="container">
+            <div class="contact_section_2">
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="mail_section_1">
+                        <form action="/contact/" method="post" >
+                          {% csrf_token %}
+
+                        <input type="text" class="mail_text" placeholder="Name" name="Name">
+                        <input type="text" class="mail_text" placeholder="Email" name="Email">
+                        <input type="text" class="mail_text" placeholder="Phone_Number" name="Phone_Number">
+                        <textarea class="massage-bt" placeholder="Massage" rows="5" id="commen" name="Massage"></textarea>
+                        <button type="submit" value="gönder" class="send_bt">gönder</button>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+{% endblock %}

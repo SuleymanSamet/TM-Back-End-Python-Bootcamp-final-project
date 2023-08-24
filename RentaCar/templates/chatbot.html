@@ -1,0 +1,43 @@
+{% extends 'partials/_base.html' %}
+{% load static %}
+
+{% block content %}
+<body>
+    <div id="chatbot-container">
+        <div id="chatbot-messages">
+            <p>Merhaba, size nasıl yardımcı olabilirim?</p>
+        </div>
+        <form id="chatbot-form" method="post">
+            {% csrf_token %}
+            <div id="chatbot-input">
+                <input type="text" id="chatbot-textbox" name="message">
+                <button type="submit" id="chatbot-button">Gönder</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#chatbot-form').submit(function(e) {
+                e.preventDefault();
+                var message = $('#chatbot-textbox').val().toLowerCase();
+                if (message) {
+                    $.ajax({
+                        url: '/chatbot/',
+                        type: 'POST',
+                        data: {
+                            'message': message,
+                            'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                        },
+                        success: function(data) {
+                            $('#chatbot-messages').append('<p>' + data.response + '</p>');
+                            $('#chatbot-textbox').val('');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+{% endblock %}
